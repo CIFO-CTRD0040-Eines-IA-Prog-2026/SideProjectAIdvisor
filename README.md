@@ -93,7 +93,11 @@ All four MUST pass before merging.
 │   └── typescript.md
 └── .specify/            # Spec-Driven Development configuration
     ├── memory/
-    │   └── constitution.md  # Project governance principles
+    │   ├── constitution.md  # Project governance principles
+    │   └── roadmap.md       # Spec roadmap ledger
+    ├── extensions/
+    │   ├── diagram/
+    │   └── roadmap/
     └── templates/           # SDD artifact templates
 ```
 
@@ -116,7 +120,9 @@ Features follow: **Specify → Plan → Tasks → Implement → Verify**, with a
 
 ```mermaid
 flowchart TD
-    A["🏛️ Constitution"] -->|defines governance| B["📋 Specify"]
+    R["🗺️ Roadmap"] -->|guides scope| B["📋 Specify"]
+    A["🏛️ Constitution"] -->|defines governance| R
+    A -->|defines governance| B
     B -->|generates| B1["📄 spec.md"]
     B -->|next phase| C["📐 Plan"]
     C -->|generates| C1["📄 plan.md"]
@@ -127,6 +133,7 @@ flowchart TD
     E -->|task complete| E1["✔️ 0/41 done"]
     E -->|next phase| F["✅ Verify"]
     F -->|validates against| B1
+    F -->|marks complete| R
 
     E -->|issues found| G["🔄 Refine"]
     G -->|updates| B1
@@ -135,9 +142,10 @@ flowchart TD
     G -->|resume| E
 
     H["🎯 Features: 1"] -.-> B
-    I["🔌 Extensions: diagram, registry"] -.-> B
+    I["🔌 Extensions: diagram, roadmap, registry"] -.-> R
 
     style A fill:#4CAF50,color:#fff
+    style R fill:#4CAF50,color:#fff
     style B fill:#4CAF50,color:#fff
     style C fill:#4CAF50,color:#fff
     style D fill:#FFC107,color:#000
