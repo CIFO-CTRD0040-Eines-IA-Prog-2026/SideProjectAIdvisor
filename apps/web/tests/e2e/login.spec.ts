@@ -33,13 +33,19 @@ test.describe("Test user login", () => {
     );
   });
 
-  test("redirects unauthenticated user to login", async ({ page }) => {
+  test("home page is public — unauthenticated visit to '/' renders home (feature 002)", async ({
+    page,
+  }) => {
+    await page.context().clearCookies();
     await page.goto("/");
 
-    await expect(page).toHaveURL("/login", { timeout: 10000 });
+    await expect(page).toHaveURL("/");
+    await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
   });
 
-  test("can sign out after login", async ({ page }) => {
+  test("can sign out after login and stays on the public home (feature 002)", async ({
+    page,
+  }) => {
     await page.goto("/login");
     await page.fill('input[name="email"]', TEST_USER.email);
     await page.fill('input[name="password"]', TEST_USER.password);
@@ -49,7 +55,7 @@ test.describe("Test user login", () => {
 
     await page.click('button[type="submit"]');
 
-    await page.goto("/");
-    await expect(page).toHaveURL("/login");
+    await expect(page).toHaveURL("/");
+    await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
   });
 });

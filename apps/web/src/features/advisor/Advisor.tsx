@@ -1033,30 +1033,6 @@ export default function Advisor() {
       className="min-h-screen bg-background text-foreground"
       style={{ fontFamily: "'DM Sans', sans-serif" }}
     >
-      {/* Top bar */}
-      <header
-        className="border-b px-6 py-4 flex items-center justify-between"
-        style={{ borderColor: "rgba(255,255,255,0.06)" }}
-      >
-        <div className="flex items-center gap-3">
-          <span
-            className="font-mono text-xs tracking-widest px-2 py-1"
-            style={{
-              color: "#b5f23c",
-              background: "rgba(181,242,60,0.1)",
-              border: "1px solid rgba(181,242,60,0.25)",
-              borderRadius: "2px",
-            }}
-          >
-            SIDE.DEV
-          </span>
-          <span className="text-muted-foreground text-sm font-mono hidden sm:block">
-            / proyectos que complementan tu perfil
-          </span>
-        </div>
-        <span className="font-mono text-xs text-muted-foreground tracking-wider">v1.0</span>
-      </header>
-
       <main className="max-w-3xl mx-auto px-4 sm:px-6 py-12 sm:py-20">
         {/* Hero */}
         <div className="mb-12">
