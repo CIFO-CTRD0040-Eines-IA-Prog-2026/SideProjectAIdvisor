@@ -6,6 +6,79 @@
   A web application that analyzes job offers and generates tailored side project proposals to help candidates land their target roles.
 </p>
 
+<p align="center">
+  <img src="https://img.shields.io/badge/TypeScript-5.8-3178C6?logo=typescript&logoColor=white" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/Next.js-15.5-000000?logo=next.js&logoColor=white" alt="Next.js" />
+  <img src="https://img.shields.io/badge/license-MIT-green" alt="License" />
+  <img src="https://img.shields.io/badge/PRs-welcome-brightgreen" alt="PRs welcome" />
+</p>
+
+---
+
+<details>
+<summary><b>📖 Table of Contents</b></summary>
+
+- [Why?](#why)
+- [Features](#features)
+- [Screenshot](#screenshot)
+- [Architecture](#architecture)
+- [Tech Stack](#tech-stack)
+- [Installation](#installation)
+- [Project Structure](#project-structure)
+- [Agents](#agents)
+- [Spec-Driven Development](#spec-driven-development-sdd)
+- [Contributing](#contributing)
+- [License](#license)
+
+</details>
+
+---
+
+## Why?
+
+Job seekers often struggle to stand out. Generic advice like "build a portfolio project" doesn't align with what recruiters actually want.
+
+SideProjectAIdvisor bridges the gap: you paste a job offer URL, and it produces **3 tailored side project proposals** — ranked Easy, Medium, Hard — using the exact tech stack the role demands, each with a build roadmap.
+
+## Features
+
+- 📄 **Job offer analysis** — paste a URL, get an instant tech stack breakdown
+- 🎯 **3 tailored proposals** — Easy / Medium / Hard, matched to the role
+- 🗺️ **Build roadmaps** — step-by-step guides for each project
+- 🔐 **User accounts** — sign up, log in, password reset (Supabase Auth)
+- 🧠 **AI-powered** — Vercel AI SDK generates personalized recommendations
+
+## Screenshot
+
+> *Screenshot coming soon. The app is under active development.*
+
+## Architecture
+
+```mermaid
+flowchart LR
+    subgraph Client["Browser"]
+        A["Next.js App Router"]
+    end
+
+    subgraph Services["External Services"]
+        B["Supabase Auth"]
+        C["Neon Postgres"]
+        D["Vercel AI SDK"]
+    end
+
+    A -->|Auth session| B
+    B -->|JWT cookies| A
+    A -->|Drizzle ORM| C
+    A -->|LLM prompts| D
+
+    style A fill:#6366F1,color:#fff
+    style B fill:#3ECF8E,color:#fff
+    style C fill:#00E599,color:#fff
+    style D fill:#000,color:#fff
+    style Client fill:#1E1E2E,color:#fff,stroke:#6366F1
+    style Services fill:#1E1E2E,color:#fff,stroke:#3ECF8E
+```
+
 ## Tech Stack
 
 | Layer | Technology |
@@ -52,6 +125,8 @@ Required variables:
 pnpm dev
 ```
 
+Opens at [http://localhost:3000](http://localhost:3000).
+
 ### Test User
 
 A pre-seeded test user is available for development and testing:
@@ -66,8 +141,6 @@ Seed it (requires `SUPABASE_SERVICE_ROLE_KEY` in `apps/web/.env`):
 ```bash
 pnpm --filter @advisor/web seed
 ```
-
-Opens at [http://localhost:3000](http://localhost:3000).
 
 ### Quality Gates
 
@@ -186,124 +259,20 @@ flowchart TD
     style H2 fill:#03A9F4,color:#fff
 ```
 
-### Status
-
-```mermaid
-gantt
-    title SDD Feature Progress
-    dateFormat X
-    axisFormat %s
-
-    section 001-user-login
-    Specify     :done, spec1, 0, 1
-    Plan        :done, plan1, 1, 2
-    Tasks       :done, task1, 2, 3
-    Implement   :done, impl1, 3, 4
-    Verify      :active, veri1, 4, 5
-```
+### Progress
 
 | Feature | Phase | Tasks | Status |
 |---------|-------|-------|--------|
-| 001-user-login | Tasks | 0/41 | Active |
+| 001 — User Login | Verify | 41/41 | ✅ Implemented |
 
-### Task Dependencies
+---
 
-```mermaid
-flowchart LR
-    subgraph Wave1["Wave 1: Setup"]
-        direction TB
-        T001["T001: Install deps"]
-        T002["T002 [P]: Dir structure"]
-        T003["T003 [P]: Browser client"]
-        T004["T004 [P]: Server client"]
-        T005["T005: Session middleware"]
-    end
+<a name="contributing"></a>
+## Contributing
 
-    subgraph Wave2["Wave 2: Foundational"]
-        direction TB
-        T006["T006: Next.js middleware"]
-        T007["T007 [P]: Auth actions types"]
-        T008["T008: Auth layout"]
-        T009["T009 [P]: .env.local"]
-    end
+Contributions are welcome! Open an issue or pull request.
 
-    subgraph Wave3["Wave 3: US1 — Sign Up"]
-        direction TB
-        T010["T010 [P]: Signup form test"]
-        T011["T011 [P]: signUp action test"]
-        T012["T012: signUp action"]
-        T013["T013 [P]: Signup page"]
-        T014["T014 [P]: Signup form"]
-        T015["T015: Wire signup"]
-    end
+<a name="license"></a>
+## License
 
-    subgraph Wave4["Wave 4: US2 — Log In"]
-        direction TB
-        T016["T016 [P]: Login form test"]
-        T017["T017 [P]: signIn action test"]
-        T018["T018: signIn action"]
-        T019["T019 [P]: Login page"]
-        T020["T020 [P]: Login form"]
-        T021["T021: Wire login"]
-        T022["T022: Auth redirect"]
-    end
-
-    subgraph Wave5["Wave 5: US3 — Log Out"]
-        direction TB
-        T023["T023 [P]: signOut test"]
-        T024["T024 [P]: Auth header test"]
-        T025["T025: signOut action"]
-        T026["T026 [P]: Auth header"]
-        T027["T027: Integrate header"]
-    end
-
-    subgraph Wave6["Wave 6: US4 — Password Reset"]
-        direction TB
-        T028["T028 [P]: resetPassword test"]
-        T029["T029 [P]: updatePassword test"]
-        T030["T030: resetPassword action"]
-        T031["T031: updatePassword action"]
-        T032["T032 [P]: Forgot pwd page"]
-        T033["T033 [P]: Forgot pwd form"]
-        T034["T034 [P]: Update pwd page"]
-        T035["T035 [P]: Auth callback"]
-    end
-
-    subgraph Wave7["Wave 7: Polish"]
-        direction TB
-        T036["T036 [P]: Login rate limit"]
-        T037["T037 [P]: Reset rate limit"]
-        T038["T038 [P]: Error boundary"]
-        T039["T039: Quickstart validation"]
-        T040["T040 [P]: Accessibility"]
-        T041["T041: lint+typecheck+test+build"]
-    end
-
-    Wave1 --> Wave2
-    Wave2 --> Wave3
-    Wave2 --> Wave4
-    Wave3 --> Wave4
-    Wave4 --> Wave5
-    Wave3 --> Wave6
-    Wave4 --> Wave6
-    Wave5 --> Wave7
-    Wave6 --> Wave7
-
-    style Wave1 fill:#e8f5e9,stroke:#4CAF50
-    style Wave2 fill:#e8f5e9,stroke:#4CAF50
-    style Wave3 fill:#FFF9C4,stroke:#FFC107
-    style Wave4 fill:#FFF9C4,stroke:#FFC107
-    style Wave5 fill:#FFF9C4,stroke:#FFC107
-    style Wave6 fill:#FFF9C4,stroke:#FFC107
-    style Wave7 fill:#E3F2FD,stroke:#2196F3
-```
-
-**Critical path**: Wave 1 → Wave 2 → Wave 3 → Wave 4 → Wave 5/6 → Wave 7
-
-| Stat | Value |
-|------|-------|
-| Total tasks | 41 |
-| Execution waves | 7 |
-| Parallel tasks | 27 (66%) |
-| Completed | 0 |
-| MVP scope | Waves 1–3 (Sign Up only, 15 tasks) |
+[MIT](LICENSE)
