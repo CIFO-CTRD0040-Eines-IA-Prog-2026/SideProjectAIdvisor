@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "seed": "npx tsx scripts/seed-test-user.ts"
   },
   "dependencies": {
     "@emotion/react": "11.14.0",

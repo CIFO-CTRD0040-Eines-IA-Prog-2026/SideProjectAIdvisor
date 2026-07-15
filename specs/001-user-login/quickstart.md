@@ -22,6 +22,25 @@ If `@supabase/supabase-js` and `@supabase/ssr` are not yet in `apps/web/package.
 pnpm --filter @advisor/web add @supabase/supabase-js @supabase/ssr
 ```
 
+## Test User
+
+A seed script creates a pre-confirmed test user for development:
+
+```bash
+pnpm --filter @advisor/web seed
+```
+
+**Credentials:**
+
+| Field    | Value                          |
+|----------|--------------------------------|
+| Email    | `test@sideprojectadvisor.com` |
+| Password | `Test1234`                    |
+
+> **Prerequisite:** Set `SUPABASE_SERVICE_ROLE_KEY` in `apps/web/.env` (find it in Supabase Dashboard → Project Settings → API → `service_role` key). This is required to create users via the Admin API without email confirmation.
+
+The script is idempotent — running it multiple times won't create duplicates.
+
 ## Validation Scenarios
 
 ### Scenario 1: Sign Up

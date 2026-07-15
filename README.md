@@ -48,6 +48,21 @@ Required variables:
 pnpm dev
 ```
 
+### Test User
+
+A pre-seeded test user is available for development and testing:
+
+```
+Email:    test@sideprojectadvisor.com
+Password: Test1234
+```
+
+Seed it (requires `SUPABASE_SERVICE_ROLE_KEY` in `apps/web/.env`):
+
+```bash
+pnpm --filter @advisor/web seed
+```
+
 Opens at [http://localhost:3000](http://localhost:3000).
 
 ### Quality Gates
