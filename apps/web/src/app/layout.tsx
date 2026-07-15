@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "SIDE.DEV — Proyectos para tu oferta",
   description:
     "Analiza una oferta de trabajo y recibe 3 side projects adaptados al stack requerido — con roadmap detallado para cada uno.",
+  icons: { icon: "/favicon.svg" },
 };
 
 export default function RootLayout({

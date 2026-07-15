@@ -1,6 +1,10 @@
-# SideProjectAIdvisor
+<p align="center">
+  <img src="apps/web/public/logo.svg" alt="SideProjectAIdvisor logo" width="400" />
+</p>
 
-A web application that analyzes job offers and generates tailored side project proposals to help candidates land their target roles.
+<p align="center">
+  A web application that analyzes job offers and generates tailored side project proposals to help candidates land their target roles.
+</p>
 
 ## Tech Stack
 
