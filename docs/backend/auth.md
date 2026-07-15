@@ -9,18 +9,19 @@ Loaded when touching login, sessions, protected routes, or user sync.
 - Social sign-in (Google, GitHub, etc.) is configured in the Clerk dashboard.
 - Free tier covers up to 10K MAUs.
 
-## Integration (TanStack Start)
+## Integration (Next.js)
 
-- Use Clerk's TanStack Start adapter (`@clerk/tanstack-start`): middleware for route
-  protection, `getAuth` to read the session inside server functions.
+- Use Clerk's Next.js adapter (`@clerk/nextjs`): `clerkMiddleware()` in `middleware.ts`
+  for route protection, `auth()` / `currentUser()` to read the session inside Server
+  Components and Server Actions.
 - Public routes: `/sign-in/*`, `/sign-up/*`, marketing pages.
 - Protected routes: an authenticated layout redirects to `/login` when unauthenticated.
 - Admin actions: check the `privateMetadata.role` claim server-side — never trust client state.
 
-## Protecting server functions
+## Protecting server actions
 
-- Every server function returning non-public data calls a `requireUser()` helper built
-  on Clerk's `getAuth`; throws/redirects if there's no session.
+- Every Server Action / Route Handler returning non-public data calls a `requireUser()`
+  helper built on Clerk's `auth()`; throws/redirects if there's no session.
 - Re-check roles/plan server-side for any authorization decision.
 
 ## DB sync (Clerk → Postgres)
@@ -32,7 +33,7 @@ Loaded when touching login, sessions, protected routes, or user sync.
 
 ## Env
 
-- `CLERK_SECRET_KEY` (server) and `VITE_CLERK_PUBLISHABLE_KEY` (client) in Vercel env.
+- `CLERK_SECRET_KEY` (server) and `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` (client) in Vercel env.
 - `CLERK_WEBHOOK_SECRET` for webhook verification.
 - Allowed origins / redirect URLs in the Clerk dashboard must match the Vercel domain
   (see `docs/infra.md`).
@@ -44,5 +45,5 @@ Loaded when touching login, sessions, protected routes, or user sync.
 
 ## Conventions
 
-- All auth helpers exported from `src/server/auth.ts`.
+- All auth helpers exported from `src/server/auth.ts` (or `src/lib/auth.ts`).
 - Never log JWTs, session tokens, or full user objects to Sentry/PostHog.

@@ -6,7 +6,7 @@ TypeScript is non-negotiable; strict mode is the default.
 ## Config
 
 - Shared base in `packages/config/tsconfig/base.json` (`strict`, `noUncheckedIndexedAccess`, `composite: true`, `incremental: true`); each app/package `tsconfig.json` extends it, adding only what it needs. No scattered duplicate tsconfigs.
-- Path aliases: `@/*` → `src/*` (configured in `apps/web/tsconfig.json` AND `apps/web/vite.config.ts`).
+- Path aliases: `@/*` → `src/*` (configured in `apps/web/tsconfig.json`). Next.js resolves the alias at build time from its own config; no Vite alias needed.
 - Use TypeScript project references for incremental builds across packages.
 - Target: a stable Node version matching the Vercel runtime (see `docs/infra.md`).
 

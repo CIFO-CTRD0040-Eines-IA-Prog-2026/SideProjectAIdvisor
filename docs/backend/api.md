@@ -1,18 +1,22 @@
 # API
 
-Loaded when touching server functions, routes, request/response handling, or
-boundary validation. TanStack Start is the only API surface — no separate service.
+Loaded when touching server actions, route handlers, request/response handling, or
+boundary validation. Next.js (Server Actions + Route Handlers) is the only API
+surface — no separate service.
 
-## Server functions (TanStack Start)
+## Server logic (Next.js)
 
-- Create with `createServerFn`. Import directly into route/component code.
+- Mutations and reads: define Server Actions with `"use server"` (colocated or under
+  `src/server/`) and call them from Server/Client Components.
+- Raw HTTP / webhooks: Route Handlers under `src/app/api/<path>/route.ts`
+  (`export async function GET/POST/...`).
 - Keep all DB access, secrets, and third-party API calls server-side.
 - Do NOT add Express, NestJS, FastAPI, or any other server framework.
 
 ## Routing & request/response
 
-- File-based routes under `src/routes/`. Use loaders for GET-style data; server
-  functions for mutations and any read that touches the DB.
+- File-based routes under `src/app/`. Use async Server Components for GET-style data;
+  Server Actions for mutations and any read that touches the DB.
 - Return serializable shapes only — project DB rows through a Zod schema before
   returning to the client (see `docs/typescript.md`).
 - Webhook routes (e.g. `/api/polar/webhook`) verify signatures before any work.
@@ -32,6 +36,6 @@ boundary validation. TanStack Start is the only API surface — no separate serv
 
 ## Conventions
 
-- Server fn files: `*.server.ts` colocated or under `src/server/`.
+- Server Action files: `*.server.ts` colocated or under `src/server/`.
 - DB access only through `src/db` helpers — no inline connection creation in routes.
 - All env access goes through the validated `env.ts` module (see `docs/typescript.md`).

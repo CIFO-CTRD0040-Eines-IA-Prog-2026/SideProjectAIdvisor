@@ -68,7 +68,11 @@ web_modules/
 # dotenv environment variable files
 .env
 .env.*
+.history/.env*
 !.env.example
+
+# Local editor history (may contain snapshots of sensitive files)
+.history/
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
@@ -127,6 +131,9 @@ dist
 
 # pnpm
 .pnpm-store
+
+# Turborepo
+.turbo
 
 # yarn v3
 .pnp.*

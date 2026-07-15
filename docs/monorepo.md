@@ -11,7 +11,7 @@ shared tsconfig, or adding a package. Runner: **pnpm** + **Turborepo**.
 
 ```
 apps/
-  web/              # TanStack Start app (the single deployable)
+  web/              # Next.js (App Router) app (the single deployable)
 packages/
   config/           # Shared tsconfig / eslint / tailwind presets (internal, not published)
 pnpm-workspace.yaml
@@ -116,7 +116,7 @@ or relative path hacks:
 
 ## Conventions
 
-- Path alias `@/*` → `apps/web/src/*` (configured in `apps/web/tsconfig.json` + `apps/web/vite.config.ts`).
+- Path alias `@/*` → `apps/web/src/*` (configured in `apps/web/tsconfig.json`; Next.js resolves it at build time).
 - In these docs, bare `src/...` paths are relative to `apps/web/`; paths under `packages/` are monorepo-wide.
 - Commit `pnpm-workspace.yaml`, `turbo.json`, and `packages/config/` to git.
 - Run `pnpm install` at the repo root, not inside workspaces.

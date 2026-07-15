@@ -1,12 +1,12 @@
 # Infra
 
 Loaded when touching deployment, env vars, Postgres, CI, domains/SSL, or backups.
-Read this before any change to `vercel.json`, `apps/web/vite.config.ts` (deploy preset),
+Read this before any change to `vercel.json`, `apps/web/next.config.mjs`,
 `turbo.json`, `pnpm-workspace.yaml`, `.github/workflows/`, or env config.
 
 ## Hosting model
 
-- **Vercel** — single deployable: the TanStack Start app (`apps/web`) on Vercel's Node runtime.
+- **Vercel** — single deployable: the Next.js app (`apps/web`) on Vercel's Node runtime.
 - Git push to `main` auto-deploys production; PRs get isolated preview deployments.
 - Vercel handles SSL, CDN, edge network, and previews automatically.
 - Vercel features are fair game (Analytics, KV, Edge Config, Cron) — but keep
@@ -25,14 +25,16 @@ Read this before any change to `vercel.json`, `apps/web/vite.config.ts` (deploy 
 - A single `apps/web/src/env.ts` validates env at boot with Zod (`z.object({...})`).
 - Mirror the same keys as GitHub Actions secrets for CI.
 - Required (non-exhaustive): `DATABASE_URL`, `CLERK_SECRET_KEY`,
-  `VITE_CLERK_PUBLISHABLE_KEY`, `CLERK_WEBHOOK_SECRET`,
+  `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`, `CLERK_WEBHOOK_SECRET`,
   `POLAR_API_KEY` / `POLAR_WEBHOOK_SECRET`, `RESEND_API_KEY`, `SENTRY_DSN`,
-  `POSTHOG_KEY`, `AI_*` provider keys.
+  `POSTHOG_KEY`, `AI_*` provider keys. Client-exposed keys use the `NEXT_PUBLIC_`
+  prefix (e.g. `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`).
 
 ## Build & migrations
 
-- Build command: `pnpm build` (runs `turbo run build`). Vercel serves the output via
-  the TanStack Start Vercel preset in `apps/web/vite.config.ts` (`@tanstack/start-vercel`).
+- Build command: `pnpm build` (runs `turbo run build`). Vercel builds the Next.js app
+  automatically (zero-config Next.js preset); no custom output config needed in
+  `apps/web/next.config.mjs` unless you override defaults.
 - Run `pnpm drizzle-kit migrate` as a Vercel prebuild step (or a CI job) before the
   new deployment receives traffic — never migrate from the running app at boot.
 - Neon handles backups via point-in-time restore; verify a restore quarterly.

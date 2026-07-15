@@ -23,7 +23,7 @@ Loaded when touching billing, subscriptions, checkout, or Polar webhooks.
 
 ## Webhooks
 
-- Endpoint is a TanStack route/server function at `/api/polar/webhook`.
+- Endpoint is a Next.js Route Handler at `/api/polar/webhook` (`src/app/api/polar/webhook/route.ts`).
 - **Verify the signature** with `POLAR_WEBHOOK_SECRET` on every request — reject otherwise.
 - Handle at least: `subscription.created`, `subscription.updated`, `subscription.deleted`,
   `checkout.completed`.

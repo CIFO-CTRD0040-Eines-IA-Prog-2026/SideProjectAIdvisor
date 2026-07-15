@@ -7,7 +7,7 @@ holds the terse rules. Describe capabilities over file paths — paths drift.
 ## Stack & framework
 
 - Use Drizzle, not Prisma. Use Zod at every external/IO boundary.
-- Keep server logic in TanStack Start server functions — no separate backend
+- Keep server logic in Next.js Server Actions / Route Handlers — no separate backend
   framework (Express, NestJS, FastAPI).
 - shadcn/ui components are owned copies (tweak their source freely); don't
   re-wrap them in a generic component layer.

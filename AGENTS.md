@@ -19,7 +19,7 @@ pnpm drizzle-kit migrate    # apply migrations
 
 ## Monorepo layout
 
-`apps/web/` is the TanStack Start app (the deployable). `packages/config/` holds
+`apps/web/` is the Next.js (App Router) app (the deployable). `packages/config/` holds
 shared tsconfig/eslint presets. Add `packages/*` only when code is shared across
 deployables. See `docs/monorepo.md` for workspace/Turborepo details.
 
@@ -39,7 +39,7 @@ deployables. See `docs/monorepo.md` for workspace/Turborepo details.
 Read the matching file when working in that area:
 
 - Conventions (cross-cutting rules, screaming architecture) → `docs/conventions.md`
-- Frontend (React, TanStack Start, shadcn, routing, AI SDK UI streaming) → `docs/frontend.md`
+- Frontend (React, Next.js App Router, shadcn, routing, AI SDK UI streaming) → `docs/frontend.md`
 - API (server functions, routing, validation, error handling) → `docs/backend/api.md`
 - Database (Postgres/Neon, Drizzle, schema, migrations, transactions) → `docs/backend/database.md`
 - AI (Vercel AI SDK, streaming, structured output) → `docs/backend/ai.md`
@@ -52,7 +52,6 @@ Read the matching file when working in that area:
 - Testing — backend (server fns, DB in tests, Zod, mocking) → `docs/testing/backend.md`
 - Testing — infra (CI gates, build verification, deploy smoke) → `docs/testing/infra.md`
 - Auth (Clerk, sessions, route protection, webhook sync, social sign-in) → `docs/backend/auth.md`
-- Payments (Polar, subscriptions, checkout, webhooks, tax/MoR) → `docs/backend/payments.md`
 - Changelog (user-facing release entries, format, publishing) → `docs/changelog.md`
 
 If a task spans multiple areas, read all relevant files first.
