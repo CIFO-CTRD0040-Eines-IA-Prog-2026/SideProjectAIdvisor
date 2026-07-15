@@ -120,17 +120,25 @@ Features follow: **Specify → Plan → Tasks → Implement → Verify**, with a
 
 ```mermaid
 flowchart TD
-    R["🗺️ Roadmap"] -->|guides scope| B["📋 Specify"]
-    A["🏛️ Constitution"] -->|defines governance| R
+    A["🏛️ Constitution"] -->|defines governance| R["🗺️ Roadmap"]
     A -->|defines governance| B
+    R -->|guides scope| B["📋 Specify"]
     B -->|generates| B1["📄 spec.md"]
     B -->|next phase| C["📐 Plan"]
     C -->|generates| C1["📄 plan.md"]
     C -->|next phase| D["📝 Tasks"]
     D -->|generates| D1["📄 tasks.md"]
     D -->|next phase| E["🔨 Implement"]
+
+    subgraph Hooks["⏺️ Hooks"]
+        direction LR
+        H1["📋 Roadmap Brief"] -->|before implement| H2["📋 Roadmap Debrief"]
+    end
+    D -.-> H1
+    H2 -.->|after implement| F
+
     E -->|builds from| D1
-    E -->|task complete| E1["✔️ 0/41 done"]
+    E -->|task complete| E1["✔️ 41/41 done"]
     E -->|next phase| F["✅ Verify"]
     F -->|validates against| B1
     F -->|marks complete| R
@@ -142,16 +150,21 @@ flowchart TD
     G -->|resume| E
 
     H["🎯 Features: 1"] -.-> B
-    I["🔌 Extensions: diagram, roadmap, registry"] -.-> R
+    I["🔌 Extensions: diagram, roadmap"] -.-> R
 
     style A fill:#4CAF50,color:#fff
     style R fill:#4CAF50,color:#fff
     style B fill:#4CAF50,color:#fff
     style C fill:#4CAF50,color:#fff
-    style D fill:#FFC107,color:#000
-    style E fill:#9E9E9E,color:#fff
-    style F fill:#9E9E9E,color:#fff
-    style G fill:#FF9800,color:#fff
+    style D fill:#4CAF50,color:#fff
+    style E fill:#4CAF50,color:#fff
+    style E1 fill:#4CAF50,color:#fff
+    style F fill:#FFC107,color:#000
+    style G fill:#9E9E9E,color:#fff
+    style H fill:#2196F3,color:#fff
+    style I fill:#2196F3,color:#fff
+    style H1 fill:#03A9F4,color:#fff
+    style H2 fill:#03A9F4,color:#fff
 ```
 
 ### Status
@@ -165,9 +178,9 @@ gantt
     section 001-user-login
     Specify     :done, spec1, 0, 1
     Plan        :done, plan1, 1, 2
-    Tasks       :task1, 2, 3
-    Implement   :impl1, 3, 4
-    Verify      :veri1, 4, 5
+    Tasks       :done, task1, 2, 3
+    Implement   :done, impl1, 3, 4
+    Verify      :active, veri1, 4, 5
 ```
 
 | Feature | Phase | Tasks | Status |
