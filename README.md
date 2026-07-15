@@ -56,27 +56,18 @@ SideProjectAIdvisor bridges the gap: you paste a job offer URL, and it produces 
 
 ```mermaid
 flowchart LR
-    subgraph Client["Browser"]
+    subgraph Browser["Browser"]
         A["Next.js App Router"]
     end
-
     subgraph Services["External Services"]
         B["Supabase Auth"]
         C["Neon Postgres"]
         D["Vercel AI SDK"]
     end
-
     A -->|Auth session| B
     B -->|JWT cookies| A
     A -->|Drizzle ORM| C
     A -->|LLM prompts| D
-
-    style A fill:#6366F1,color:#fff
-    style B fill:#3ECF8E,color:#fff
-    style C fill:#00E599,color:#fff
-    style D fill:#000,color:#fff
-    style Client fill:#1E1E2E,color:#fff,stroke:#6366F1
-    style Services fill:#1E1E2E,color:#fff,stroke:#3ECF8E
 ```
 
 ## Tech Stack
