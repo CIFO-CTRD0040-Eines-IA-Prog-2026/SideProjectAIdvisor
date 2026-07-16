@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/CIFO-CTRD0040-Eines-IA-Prog-2026/SideProjectAIdvisor/main/logo.png" alt="SideProjectAIdvisor logo" width="400" style="background: #000; border-radius: 8px; padding: 16px;" />
+  <img src="https://raw.githubusercontent.com/CIFO-CTRD0040-Eines-IA-Prog-2026/SideProjectAIdvisor/main/logo_black.jpg" alt="SideProjectAIdvisor logo" width="400" style="background: #000; border-radius: 8px; padding: 16px;" />
 </p>
 
 <p align="center">
