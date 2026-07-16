@@ -1,25 +1,23 @@
 <!--
 SYNC IMPACT REPORT
 ==================
-Version change: 1.1.0 → 1.1.1
-Bump rationale: PATCH — two status transitions, no structural additions.
+Version change: 1.1.1 → 1.1.2
+Bump rationale: PATCH — status transition, no structural additions.
 
 Changes this revision:
-  - Transitioned 003 — Public Home Page with Header Login Button: specced → in-progress. The
-    pre-implementation brief (specs/002-public-home-login-button/roadmap-reviews/brief-...md)
-    recommended moving to in-progress as implementation begins.
-  - Reconciled 001 — User Login: specced → in-progress. The brief's F1 finding observed that
-    001's auth surface is already present in the codebase (auth pages, components, seed script,
-    signOut action, Supabase clients, middleware, PUBLIC_ROUTES) even though the tasks checklist
-    recorded 0/41 checked. in-progress is the honest status: real implementation exists but the
-    full gate (quickstart scenarios + `pnpm lint && typecheck && test && build`) has not been
-    confirmed, so neither `implemented` nor `verified` is justified yet.
+  - Transitioned 003 — Public Home Page with Header Login Button: in-progress → verified.
+    All 17 Playwright e2e tests pass (8 unauthenticated + 9 authenticated, covering all 4 user
+    stories). The post-implementation debrief (debrief-20260715T1916.md) found zero 🎯 Must-Address
+    findings — outcome met, scope honored, constraints compliant. The Supabase test user was
+    seeded via SQL (crypt/gen_salt bcrypt hash + identity record + NULL-safe text columns), and
+    the env was provisioned with the legacy JWT anon key for @supabase/ssr compatibility.
+    Constitution gate: `pnpm lint && pnpm typecheck && pnpm test (17/17 e2e) && pnpm build` all
+    green.
 
-Specs affected: 001 (status), 003 (status)
+Specs affected: 003 (status)
 Open questions added/resolved: none; Q-01..Q-03 unchanged
 
-Notes: Both changes are status transitions only (no new entries, no scope/outcome changes) →
-PATCH bump. 002 unchanged.
+Notes: PATCH bump — status transition only. 001 and 002 unchanged.
 -->
 
 # SideProjectAIdvisor — Spec Roadmap
@@ -80,7 +78,7 @@ Status legend (lifecycle): **undecided** · **needs-info** · **planned** ·
 - **Governed by:** C-02 (Next.js/React), C-03 (Supabase/Postgres), C-04 (TDD).
 - **Notes:** Originally discussed during project initiation but not yet specified. Needs scoping and clarification before moving to `planned`. **Numbering disambiguation (2026-07-15):** this `002` ledger ordinal is reserved for the Job Offer Analyzer and does *not* correspond to the `specs/002-public-home-login-button/` directory on disk — that directory is the 003 feature (a login-feature iteration), added after the roadmap-sync on 2026-07-15. The disk dir name and the ledger ordinal are allowed to differ; no rename of the disk dir is implied.
 
-### 003 — Public Home Page with Header Login Button  [status: in-progress]
+### 003 — Public Home Page with Header Login Button  [status: verified]
 
 - **Description:** Make the home page (`/`) public so visitors are not forced to log in, and add a state-aware authentication control to a shared site header — a "Log in" button (top-right) for anonymous visitors, and an account indicator + sign-out control for signed-in users.
 - **Outcome:** Unauthenticated visitors reach the home page with no forced-login redirect; a visible "Log in" button in the header links to the login page; authenticated users see an account indicator + sign-out and are not bounced off the public home; protected (non-public) routes remain protected.
@@ -104,4 +102,4 @@ Status legend (lifecycle): **undecided** · **needs-info** · **planned** ·
 
 ---
 
-**Version**: 1.1.1 | **Ratified**: 2026-07-15 | **Last Amended**: 2026-07-15
+**Version**: 1.1.2 | **Ratified**: 2026-07-15 | **Last Amended**: 2026-07-16

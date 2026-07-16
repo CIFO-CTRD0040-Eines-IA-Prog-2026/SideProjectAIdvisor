@@ -991,7 +991,7 @@ export default function Advisor() {
     try {
       const { hostname } = new URL(value);
       const host = hostname.replace("www.", "");
-      return host === "linkedin.com" || host === "indeed.com";
+      return host === "linkedin.com" || host === "indeed.com" || host === "remotojob.com";
     } catch {
       return false;
     }
@@ -1000,7 +1000,7 @@ export default function Advisor() {
   const handleAnalyze = () => {
     if (!url.trim()) return;
     if (!isValidJobUrl(url)) {
-      setUrlError("Solo se aceptan URLs de LinkedIn o Indeed.");
+      setUrlError("Solo se aceptan URLs de LinkedIn, Indeed o RemotoJob.");
       return;
     }
     setUrlError(null);
@@ -1116,11 +1116,11 @@ export default function Advisor() {
           {urlError ? (
             <p className="mt-2 font-mono text-xs flex items-center gap-1.5" style={{ color: "#f25c5c" }}>
               <span>✕</span> {urlError}{" "}
-              <span style={{ color: "#555" }}>Soportamos linkedin.com e indeed.com.</span>
+               <span style={{ color: "#555" }}>Soportamos linkedin.com, indeed.com y remotojob.com.</span>
             </p>
           ) : (
             <p className="mt-2 font-mono text-xs" style={{ color: "#444" }}>
-              Solo se aceptan URLs de LinkedIn e Indeed
+              Solo se aceptan URLs de LinkedIn, Indeed o RemotoJob
             </p>
           )}
         </div>
