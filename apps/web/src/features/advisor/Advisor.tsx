@@ -991,7 +991,7 @@ export default function Advisor() {
     try {
       const { hostname } = new URL(value);
       const host = hostname.replace("www.", "");
-      return host === "linkedin.com" || host === "indeed.com";
+      return host === "linkedin.com" || host === "indeed.com" || host === "remotojob.com";
     } catch {
       return false;
     }
@@ -1000,7 +1000,7 @@ export default function Advisor() {
   const handleAnalyze = () => {
     if (!url.trim()) return;
     if (!isValidJobUrl(url)) {
-      setUrlError("Solo se aceptan URLs de LinkedIn o Indeed.");
+      setUrlError("Solo se aceptan URLs de LinkedIn, Indeed o RemotoJob.");
       return;
     }
     setUrlError(null);
@@ -1033,30 +1033,6 @@ export default function Advisor() {
       className="min-h-screen bg-background text-foreground"
       style={{ fontFamily: "'DM Sans', sans-serif" }}
     >
-      {/* Top bar */}
-      <header
-        className="border-b px-6 py-4 flex items-center justify-between"
-        style={{ borderColor: "rgba(255,255,255,0.06)" }}
-      >
-        <div className="flex items-center gap-3">
-          <span
-            className="font-mono text-xs tracking-widest px-2 py-1"
-            style={{
-              color: "#b5f23c",
-              background: "rgba(181,242,60,0.1)",
-              border: "1px solid rgba(181,242,60,0.25)",
-              borderRadius: "2px",
-            }}
-          >
-            SIDE.DEV
-          </span>
-          <span className="text-muted-foreground text-sm font-mono hidden sm:block">
-            / proyectos que complementan tu perfil
-          </span>
-        </div>
-        <span className="font-mono text-xs text-muted-foreground tracking-wider">v1.0</span>
-      </header>
-
       <main className="max-w-3xl mx-auto px-4 sm:px-6 py-12 sm:py-20">
         {/* Hero */}
         <div className="mb-12">
@@ -1140,11 +1116,11 @@ export default function Advisor() {
           {urlError ? (
             <p className="mt-2 font-mono text-xs flex items-center gap-1.5" style={{ color: "#f25c5c" }}>
               <span>✕</span> {urlError}{" "}
-              <span style={{ color: "#555" }}>Soportamos linkedin.com e indeed.com.</span>
+               <span style={{ color: "#555" }}>Soportamos linkedin.com, indeed.com y remotojob.com.</span>
             </p>
           ) : (
             <p className="mt-2 font-mono text-xs" style={{ color: "#444" }}>
-              Solo se aceptan URLs de LinkedIn e Indeed
+              Solo se aceptan URLs de LinkedIn, Indeed o RemotoJob
             </p>
           )}
         </div>

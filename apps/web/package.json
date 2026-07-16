@@ -10,6 +10,7 @@
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "seed": "npx tsx scripts/seed-test-user.ts",
+    "test": "playwright test",
     "test:e2e": "playwright test"
   },
   "dependencies": {

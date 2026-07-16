@@ -1,16 +1,23 @@
 <!--
 SYNC IMPACT REPORT
 ==================
-Version change: (none) → 1.0.0
-Bump rationale: MAJOR — initial roadmap creation
+Version change: 1.1.1 → 1.1.2
+Bump rationale: PATCH — status transition, no structural additions.
 
 Changes this revision:
-  - Created initial roadmap with 1 planned spec entry (001-user-login)
+  - Transitioned 003 — Public Home Page with Header Login Button: in-progress → verified.
+    All 17 Playwright e2e tests pass (8 unauthenticated + 9 authenticated, covering all 4 user
+    stories). The post-implementation debrief (debrief-20260715T1916.md) found zero 🎯 Must-Address
+    findings — outcome met, scope honored, constraints compliant. The Supabase test user was
+    seeded via SQL (crypt/gen_salt bcrypt hash + identity record + NULL-safe text columns), and
+    the env was provisioned with the legacy JWT anon key for @supabase/ssr compatibility.
+    Constitution gate: `pnpm lint && pnpm typecheck && pnpm test (17/17 e2e) && pnpm build` all
+    green.
 
-Specs affected: 001
-Open questions added/resolved: 3 open questions added
+Specs affected: 003 (status)
+Open questions added/resolved: none; Q-01..Q-03 unchanged
 
-Notes: Initial roadmap created from constitution principles and session context.
+Notes: PATCH bump — status transition only. 001 and 002 unchanged.
 -->
 
 # SideProjectAIdvisor — Spec Roadmap
@@ -59,7 +66,7 @@ Status legend (lifecycle): **undecided** · **needs-info** · **planned** ·
 - **Depends on:** None — foundation-level feature.
 - **Governed by:** C-03 (Supabase Auth), C-04 (TDD), C-06 (conventional commits).
 - **Spec dir:** specs/001-user-login/
-- **Notes:** Spec, plan, and tasks are complete. 41 tasks, 0 of 41 completed. MVP scope is sign-up only (15 tasks, waves 1–3).
+- **Notes:** Spec, plan, and tasks are complete. 41 tasks, 0 of 41 completed — design is done, implementation has not started (status reconciled `in-progress` → `specced` on 2026-07-15). MVP scope is sign-up only (15 tasks, waves 1–3). *Amended by 003* (the public-home / header-login-button iteration, which changes which routes 001 protects without redefining the auth flows).
 
 ### 002 — Job Offer Analyzer  [status: undecided]
 
@@ -69,7 +76,18 @@ Status legend (lifecycle): **undecided** · **needs-info** · **planned** ·
 - **Scope (out):** *To be defined.*
 - **Depends on:** 001 (requires authenticated user context).
 - **Governed by:** C-02 (Next.js/React), C-03 (Supabase/Postgres), C-04 (TDD).
-- **Notes:** Originally discussed during project initiation but not yet specified. Needs scoping and clarification before moving to `planned`.
+- **Notes:** Originally discussed during project initiation but not yet specified. Needs scoping and clarification before moving to `planned`. **Numbering disambiguation (2026-07-15):** this `002` ledger ordinal is reserved for the Job Offer Analyzer and does *not* correspond to the `specs/002-public-home-login-button/` directory on disk — that directory is the 003 feature (a login-feature iteration), added after the roadmap-sync on 2026-07-15. The disk dir name and the ledger ordinal are allowed to differ; no rename of the disk dir is implied.
+
+### 003 — Public Home Page with Header Login Button  [status: verified]
+
+- **Description:** Make the home page (`/`) public so visitors are not forced to log in, and add a state-aware authentication control to a shared site header — a "Log in" button (top-right) for anonymous visitors, and an account indicator + sign-out control for signed-in users.
+- **Outcome:** Unauthenticated visitors reach the home page with no forced-login redirect; a visible "Log in" button in the header links to the login page; authenticated users see an account indicator + sign-out and are not bounced off the public home; protected (non-public) routes remain protected.
+- **Scope (in):** Add `/` to `PUBLIC_ROUTES`; split `AUTH_PAGES` (auth-only routes) from `PUBLIC_ROUTES` so authenticated users are redirected off auth pages but NOT off the public home; add a shared `SiteHeader` + `HeaderAuth` client component to the root layout; server-resolve the Supabase session in the layout to avoid a logged-out→logged-in flash; reuse the existing `signOut` action (no new server actions or contracts); remove the home-grown `<header>` baked into the `Advisor` feature component.
+- **Scope (out):** Social login, profile management, email verification (unchanged from 001); no new data entities, migrations, server actions, or HTTP contracts; no new `packages/*`.
+- **Depends on:** 001 — amends the login feature's routing (the home page's protection status and the auth-account control are reactions to 001's behavior).
+- **Governed by:** C-02 (Next.js App Router, TypeScript strict, Tailwind-only, explicit server/client boundary), C-04 (Test-First via Playwright e2e, the user-specified test layer).
+- **Spec dir:** specs/002-public-home-login-button/
+- **Notes:** Added 2026-07-15 to absorb the orphan spec surfaced by `/speckit.roadmap.sync`. Design is complete (spec + plan + research + data-model + contracts/header-auth-ui + quickstart + 29 tasks); 0 of 29 tasks complete. Test layer is **Playwright e2e** at the user's explicit request (vitest is not installed in `@advisor/web`); existing `tests/e2e/login.spec.ts` has stale assertions this feature retires. The ledger ordinal (`003`) intentionally differs from the disk directory name (`002-public-home-login-button`) — spec directory names and ledger ordinals are independent; the ordinal was chosen to resolve the collision with the existing `002 — Job Offer Analyzer` entry. *Amends 001.*
 
 ## Open Questions
 
@@ -84,4 +102,4 @@ Status legend (lifecycle): **undecided** · **needs-info** · **planned** ·
 
 ---
 
-**Version**: 1.0.0 | **Ratified**: 2026-07-15 | **Last Amended**: 2026-07-15
+**Version**: 1.1.2 | **Ratified**: 2026-07-15 | **Last Amended**: 2026-07-16

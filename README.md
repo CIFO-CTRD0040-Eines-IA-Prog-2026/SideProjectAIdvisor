@@ -7,10 +7,12 @@
 </p>
 
 <p align="center">
+  <a href="https://sideprojectadvisor.vercel.app"><img src="https://img.shields.io/badge/production-sideprojectadvisor.vercel.app-000000?logo=vercel&logoColor=white" alt="Vercel"></a>
   <img src="https://img.shields.io/badge/TypeScript-5.8-3178C6?logo=typescript&logoColor=white" alt="TypeScript" />
   <img src="https://img.shields.io/badge/Next.js-15.5-000000?logo=next.js&logoColor=white" alt="Next.js" />
   <img src="https://img.shields.io/badge/license-MIT-green" alt="License" />
   <img src="https://img.shields.io/badge/PRs-welcome-brightgreen" alt="PRs welcome" />
+  <img src="https://img.shields.io/github/deployments/CIFO-CTRD0040-Eines-IA-Prog-2026/SideProjectAIdvisor/production?logo=vercel&label=deploy" alt="Deploy status">
 </p>
 
 ---
@@ -86,6 +88,7 @@ flowchart LR
 | **Email** | Resend + React Email |
 | **Deployment** | Vercel (serverless) |
 | **Monorepo** | pnpm workspaces + Turborepo |
+| **Testing** | Playwright (e2e) |
 | **Linting** | ESLint + Prettier |
 
 ## Installation
@@ -138,7 +141,7 @@ pnpm --filter @advisor/web seed
 ```bash
 pnpm lint          # ESLint
 pnpm typecheck     # TypeScript strict mode
-pnpm test          # Test suite
+pnpm test          # Playwright e2e suite
 pnpm build         # Production build
 ```
 
@@ -199,7 +202,7 @@ This project uses [opencode agents](https://opencode.ai) for AI-assisted develop
 
 Features follow: **Specify → Plan → Tasks → Implement → Verify**, with a refine loop.
 
-### Workflow
+### SDD Workflow
 
 ```mermaid
 flowchart TD
@@ -213,18 +216,17 @@ flowchart TD
     D -->|generates| D1["📄 tasks.md"]
     D -->|next phase| E["🔨 Implement"]
 
-    subgraph Hooks["⏺️ Hooks"]
+    subgraph Hooks["🔌 Roadmap Hooks"]
         direction LR
-        H1["📋 Roadmap Brief"] -->|before implement| H2["📋 Roadmap Debrief"]
+        H1["📋 Brief"] -->|before implement| H2["📋 Debrief"]
     end
     D -.-> H1
     H2 -.->|after implement| F
 
     E -->|builds from| D1
-    E -->|task complete| E1["✔️ 41/41 done"]
     E -->|next phase| F["✅ Verify"]
     F -->|validates against| B1
-    F -->|marks complete| R
+    F -->|marks verified| R
 
     E -->|issues found| G["🔄 Refine"]
     G -->|updates| B1
@@ -232,29 +234,75 @@ flowchart TD
     G -->|propagates to| D1
     G -->|resume| E
 
-    H["🎯 Features: 1"] -.-> B
-    I["🔌 Extensions: diagram, roadmap"] -.-> R
-
     style A fill:#4CAF50,color:#fff
     style R fill:#4CAF50,color:#fff
     style B fill:#4CAF50,color:#fff
     style C fill:#4CAF50,color:#fff
     style D fill:#4CAF50,color:#fff
     style E fill:#4CAF50,color:#fff
-    style E1 fill:#4CAF50,color:#fff
-    style F fill:#FFC107,color:#000
+    style F fill:#4CAF50,color:#fff
     style G fill:#9E9E9E,color:#fff
-    style H fill:#2196F3,color:#fff
-    style I fill:#2196F3,color:#fff
     style H1 fill:#03A9F4,color:#fff
     style H2 fill:#03A9F4,color:#fff
 ```
 
-### Progress
+### Feature Progress
+
+```mermaid
+gantt
+    title SDD Feature Progress
+    dateFormat X
+    axisFormat %s
+
+    section 001 — User Login
+    Specify     :done, s1, 0, 1
+    Plan        :done, p1, 1, 2
+    Tasks       :done, t1, 2, 3
+    Implement   :active, i1, 3, 4
+    Verify      :v1, 4, 5
+
+    section 003 — Public Home + Header Login
+    Specify     :done, s2, 0, 1
+    Plan        :done, p2, 1, 2
+    Tasks       :done, t2, 2, 3
+    Implement   :done, i2, 3, 4
+    Verify      :done, v2, 4, 5
+```
 
 | Feature | Phase | Tasks | Status |
 |---------|-------|-------|--------|
-| 001 — User Login | Verify | 41/41 | ✅ Implemented |
+| 001 — User Login | Implement | 0/41 | 🟡 in-progress |
+| 003 — Public Home + Header Login | Verify | 29/29 | ✅ verified |
+
+### Spec Roadmap
+
+```mermaid
+flowchart LR
+    subgraph Done["✅ Verified"]
+        S003["003 — Public Home + Header Login"]
+    end
+    subgraph Active["🟡 In Progress"]
+        S001["001 — User Login"]
+    end
+    subgraph Planned["⚪ Undecided"]
+        S002["002 — Job Offer Analyzer"]
+    end
+
+    S003 -->|amends| S001
+    S002 -->|depends on| S001
+
+    style S003 fill:#4CAF50,color:#fff
+    style S001 fill:#FFC107,color:#000
+    style S002 fill:#9E9E9E,color:#fff
+```
+
+| Spec | Status | Description |
+|------|--------|-------------|
+| 001 | 🟡 in-progress | Email/password auth via Supabase Auth |
+| 002 | ⚪ undecided | Core job-offer analysis & side-project proposals |
+| 003 | ✅ verified | Public home Page with Header Login Button |
+
+> Roadmap ledger: `.specify/memory/roadmap.md` (v1.1.2)
 
 ---
 
