@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="apps/web/public/logo.svg" alt="SideProjectAIdvisor logo" width="400" />
+  <img src="logo.png" alt="SideProjectAIdvisor logo" width="400" style="background: #000; border-radius: 8px; padding: 16px;" />
 </p>
 
 <p align="center">

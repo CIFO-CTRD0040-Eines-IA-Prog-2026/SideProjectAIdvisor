@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { HeaderAuth } from "@/components/auth/header-auth";
 
 export interface SiteHeaderProps {
@@ -14,9 +15,7 @@ export function SiteHeader({ authenticated, email }: SiteHeaderProps) {
     <header className="border-b px-6 py-4">
       <div className="mx-auto flex max-w-3xl items-center justify-between">
         <div className="flex items-center gap-3">
-          <span className="font-mono text-xs tracking-widest px-2 py-1 bg-primary/10 text-primary border border-primary/25 rounded-sm">
-            SIDE.DEV
-          </span>
+          <Image src="/logo.png" alt="SideProjectAIdvisor" width={160} height={40} className="h-8 w-auto" priority />
           <span className="hidden text-sm font-mono text-muted-foreground sm:block">
             / proyectos que complementan tu perfil
           </span>
