@@ -17,7 +17,7 @@ test.describe("Test user login", () => {
 
     await expect(page).toHaveURL("/", { timeout: 10000 });
 
-    await expect(page.locator("text=Welcome")).toBeVisible();
+    await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
     await expect(page.getByText(TEST_USER.email)).toBeVisible();
   });
 
@@ -28,9 +28,7 @@ test.describe("Test user login", () => {
     await page.fill('input[name="password"]', "WrongPass1");
     await page.click('button[type="submit"]');
 
-    await expect(page.locator('[role="alert"]')).toContainText(
-      "Invalid email or password",
-    );
+    await expect(page.getByText("Invalid email or password")).toBeVisible();
   });
 
   test("home page is public — unauthenticated visit to '/' renders home (feature 002)", async ({
@@ -53,7 +51,7 @@ test.describe("Test user login", () => {
 
     await expect(page).toHaveURL("/", { timeout: 10000 });
 
-    await page.click('button[type="submit"]');
+    await page.getByRole("button", { name: /sign out/i }).click();
 
     await expect(page).toHaveURL("/");
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();

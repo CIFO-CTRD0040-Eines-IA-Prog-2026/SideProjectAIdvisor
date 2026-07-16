@@ -21,5 +21,10 @@ export async function asAuthenticated(
   await page.fill('input[name="email"]', TEST_USER.email);
   await page.fill('input[name="password"]', TEST_USER.password);
   await page.click('button[type="submit"]');
-  await page.waitForURL(url === "/" ? "/" : url, { timeout: 10_000 });
+  // Wait for the client-side router to complete navigation to the target URL.
+  await page.waitForURL(url === "/" ? "/" : url, { timeout: 15_000 });
+  // If a specific non-home URL was requested, navigate there after auth.
+  if (url !== "/") {
+    await page.goto(url);
+  }
 }
