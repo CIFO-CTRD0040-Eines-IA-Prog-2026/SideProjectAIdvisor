@@ -234,6 +234,9 @@ flowchart TD
     G -->|propagates to| D1
     G -->|resume| E
 
+    R ==>|periodic| H3["🔁 Reconcile"]
+    H3 -.->|drift found| R
+
     style A fill:#4CAF50,color:#fff
     style R fill:#4CAF50,color:#fff
     style B fill:#4CAF50,color:#fff
@@ -244,6 +247,7 @@ flowchart TD
     style G fill:#9E9E9E,color:#fff
     style H1 fill:#03A9F4,color:#fff
     style H2 fill:#03A9F4,color:#fff
+    style H3 fill:#03A9F4,color:#fff
 ```
 
 ### Feature Progress
@@ -274,6 +278,54 @@ gantt
 | 001 — User Login | Implement | 0/41 | 🟡 in-progress |
 | 003 — Public Home + Header Login | Verify | 29/29 | ✅ verified |
 
+### Task Dependency DAG
+
+```mermaid
+flowchart LR
+    subgraph F001["001 — User Login"]
+        direction TB
+        P1a["Phase 1: Setup ✅"] --> P2a["Phase 2: Foundational ✅"]
+        P2a --> P3a["Phase 3: Sign Up 🟡"]
+        P3a --> P4a["Phase 4: Log In 🟡"]
+        P4a --> P5a["Phase 5: Log Out 🟡"]
+        P3a --> P6a["Phase 6: Password Reset 🟡"]
+        P5a --> P7a["Phase 7: Polish 🟡"]
+        P6a --> P7a
+    end
+
+    subgraph F003["003 — Public Home + Header Login"]
+        direction TB
+        P1b["Phase 1: Setup ✅"] --> P2b["Phase 2: Foundational ✅"]
+        P2b --> P3b["Phase 3: US1 — Public Home ✅"]
+        P3b --> P4b["Phase 4: US2 — Login Button ✅"]
+        P4b --> P5b["Phase 5: US3 — Account Control ✅"]
+        P2b --> P6b["Phase 6: US4 — Auth Redirect ✅"]
+        P5b --> P7b["Phase 7: Polish ✅"]
+        P6b --> P7b
+    end
+
+    F003 -.->|amends| F001
+
+    style F001 fill:#FFC107,color:#000
+    style F003 fill:#4CAF50,color:#fff
+    style P1a fill:#4CAF50,color:#fff
+    style P2a fill:#4CAF50,color:#fff
+    style P3a fill:#FFC107,color:#000
+    style P4a fill:#FFC107,color:#000
+    style P5a fill:#FFC107,color:#000
+    style P6a fill:#FFC107,color:#000
+    style P7a fill:#FFC107,color:#000
+    style P1b fill:#4CAF50,color:#fff
+    style P2b fill:#4CAF50,color:#fff
+    style P3b fill:#4CAF50,color:#fff
+    style P4b fill:#4CAF50,color:#fff
+    style P5b fill:#4CAF50,color:#fff
+    style P6b fill:#4CAF50,color:#fff
+    style P7b fill:#4CAF50,color:#fff
+```
+
+**Legend**: 🟢 Phase completed · 🟡 Phase active / ready · ⚪ Phase not started
+
 ### Spec Roadmap
 
 ```mermaid
@@ -298,11 +350,11 @@ flowchart LR
 
 | Spec | Status | Description |
 |------|--------|-------------|
-| 001 | 🟡 in-progress | Email/password auth via Supabase Auth |
+| 001 | 🟡 in-progress | Email/password auth via Supabase Auth (0/41 tasks) |
 | 002 | ⚪ undecided | Core job-offer analysis & side-project proposals |
-| 003 | ✅ verified | Public home Page with Header Login Button |
+| 003 | ✅ verified | Public home Page with Header Login Button (29/29 tasks) |
 
-> Roadmap ledger: `.specify/memory/roadmap.md` (v1.1.2)
+> Roadmap ledger: `.specify/memory/roadmap.md` (v1.1.2) · Diagrams generated via speckit SDK skills
 
 ---
 
