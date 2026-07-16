@@ -7,10 +7,12 @@
 </p>
 
 <p align="center">
+  <a href="https://sideprojectadvisor.vercel.app"><img src="https://img.shields.io/badge/production-sideprojectadvisor.vercel.app-000000?logo=vercel&logoColor=white" alt="Vercel"></a>
   <img src="https://img.shields.io/badge/TypeScript-5.8-3178C6?logo=typescript&logoColor=white" alt="TypeScript" />
   <img src="https://img.shields.io/badge/Next.js-15.5-000000?logo=next.js&logoColor=white" alt="Next.js" />
   <img src="https://img.shields.io/badge/license-MIT-green" alt="License" />
   <img src="https://img.shields.io/badge/PRs-welcome-brightgreen" alt="PRs welcome" />
+  <img src="https://img.shields.io/github/deployments/CIFO-CTRD0040-Eines-IA-Prog-2026/SideProjectAIdvisor/production?logo=vercel&label=deploy" alt="Deploy status">
 </p>
 
 ---
